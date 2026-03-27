@@ -42,5 +42,5 @@ jobs:
 
       - name: Build Docker images
         run: |
-          docker build -t hello:latest -f Hello/Dockerfile .
+          docker build -t hello:latest -f .
 
