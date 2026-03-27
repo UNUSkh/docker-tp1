@@ -37,7 +37,7 @@ jobs:
         if: always()
         with:
           files: |
-            Hello/build/test-results/**/*.xml
+            build/test-results/**/*.xml
 
       - name: Build Docker images
         run: |
