@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  checks: write
 
 jobs:
   build-and-test:
@@ -17,6 +18,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -28,7 +31,12 @@ jobs:
       - name: Build and test
         run: |
           chmod +x gradlew
-          ./gradlew build
+          ./gradlew build jacocoTestReport
+
+      - name: SonarCloud Analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew sonar
 
       - name: Build Docker image
         run: |

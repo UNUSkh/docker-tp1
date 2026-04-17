@@ -2,11 +2,19 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.4.4'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'jacoco'
+	id 'org.sonarqube' version '4.4.1.3373'
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
+jacocoTestReport {
+	reports {
+		xml.required = true
+		html.required = true
+	}
+}
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(17)
@@ -23,6 +31,16 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
+
+sonar {
+	properties {
+		property 'sonar.projectKey', 'UNUSkh_docker-tp1'
+		property 'sonar.organization', 'unuskh'
+		property 'sonar.host.url', 'https://sonarcloud.io'
+	}
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport
 }
