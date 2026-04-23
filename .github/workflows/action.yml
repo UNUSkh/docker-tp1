@@ -41,6 +41,8 @@ jobs:
           args: >
             -Dsonar.projectKey=UNUSkh_docker-tp1
             -Dsonar.organization=unuskh
+            -Dsonar.java.binaries=build/classes
+            -Dsonar.java.source=17
 
       - name: Build Docker image
         run: |
